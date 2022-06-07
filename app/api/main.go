@@ -3,10 +3,12 @@ package main
 import (
 	"fmt"
 	"login-go/internal/config"
+	cadm "login-go/internal/controller/admin"
 	ca "login-go/internal/controller/auth"
 	cu "login-go/internal/controller/users"
 
 	"login-go/internal/repository/postgres"
+	adr "login-go/internal/repository/postgres/admin"
 	ar "login-go/internal/repository/postgres/auth"
 	ur "login-go/internal/repository/postgres/user"
 	"login-go/internal/validate"
@@ -37,14 +39,17 @@ func main() {
 	// repository
 	userRepo := ur.NewUserRepository(db)
 	authRepo := ar.NewUserAuthRepository(db)
+	adminRepo := adr.NewAdminRepository(db)
 
 	// controller
 	userController := cu.NewUserController(userRepo)
 	authController := ca.NewUserAuthController(authRepo)
+	adminController := cadm.NewAdminController(adminRepo)
 
 	// routes
 	routes.RegisterPath(e, userController)
 	routes.UserAuthPath(e, authController)
+	routes.AdminPath(e, adminController)
 
 	address := fmt.Sprintf(":%d", cfg.Port)
 	e.Logger.Fatal(e.Start(address))

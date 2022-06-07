@@ -77,32 +77,3 @@ func (ac AuthController) UserDelete(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, utils.NewSuccessOperationResponse())
 }
-
-func (ac AuthController) CreateAdmin(c echo.Context) error {
-	var adminReq AdminRequest
-
-	c.Bind(&adminReq)
-	if err := c.Validate(&adminReq); err != nil {
-		return c.JSON(http.StatusBadRequest, utils.NewBadRequestResponse())
-	}
-
-	password, _ := utils.HashPassword(adminReq.Password)
-	user := entity.User{
-		Name:     adminReq.Name,
-		Email:    adminReq.Email,
-		Password: password,
-	}
-
-	userDB, err := ac.Repository.RegisterAdmin(user)
-	if err != nil {
-		return c.JSON(http.StatusNotAcceptable, utils.ErrorResponse(http.StatusNotAcceptable, "Email already exist"))
-	}
-	response := UserResponse{
-		ID:    userDB.ID,
-		Name:  userDB.Name,
-		Email: userDB.Email,
-		Role:  userDB.Role,
-	}
-
-	return c.JSON(http.StatusOK, utils.SuccessResponse(response))
-}

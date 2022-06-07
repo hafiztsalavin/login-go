@@ -17,9 +17,4 @@ func UserAuthPath(e *echo.Echo, authController *auth.AuthController) {
 	admin := e.Group("/admin")
 	admin.GET("/profile", authController.UserDetails, middleware.JWT([]byte(os.Getenv("JWT_ACCESS_KEY"))), middlewares.AdminRole)
 	auth.PUT("/delete", authController.UserDelete, middleware.JWT([]byte(os.Getenv("JWT_ACCESS_KEY"))), middlewares.AdminRole)
-
-	root := e.Group("/root")
-	root.POST("/register", authController.CreateAdmin, middleware.JWT([]byte(os.Getenv("JWT_ACCESS_KEY"))), middlewares.SuperAdminRole)
-	root.PUT("/delete", authController.UserDelete, middleware.JWT([]byte(os.Getenv("JWT_ACCESS_KEY"))), middlewares.SuperAdminRole)
-
 }

@@ -1,6 +1,7 @@
 package auth
 
 import (
+	"errors"
 	"login-go/internal/repository/entity"
 
 	"gorm.io/gorm"
@@ -10,7 +11,6 @@ type AuthInterface interface {
 	GetUser(id uint) (entity.User, error)
 	UpdateUser(id uint, updateUser entity.User) (entity.User, error)
 	DeleteUser(name, email string) (entity.User, error)
-	RegisterAdmin(entity.User) (entity.User, error)
 }
 
 type AuthRepository struct {
@@ -19,15 +19,6 @@ type AuthRepository struct {
 
 func NewUserAuthRepository(db *gorm.DB) *AuthRepository {
 	return &AuthRepository{db: db}
-}
-
-func (ar *AuthRepository) RegisterAdmin(user entity.User) (entity.User, error) {
-	user.Role = "admin"
-	if err := ar.db.Create(&user).Error; err != nil {
-		return user, err
-	}
-
-	return user, nil
 }
 
 func (ar *AuthRepository) GetUser(id uint) (entity.User, error) {
@@ -56,6 +47,10 @@ func (ar *AuthRepository) DeleteUser(nama, email string) (entity.User, error) {
 
 	if err := ar.db.Where("name = ? AND email = ?", nama, email).First(&user).Error; err != nil {
 		return user, err
+	}
+
+	if user.Role != "user" {
+		return user, errors.New("admin user not allowed to delete")
 	}
 
 	ar.db.Delete(&user)
