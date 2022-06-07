@@ -12,11 +12,27 @@ type ResponseSuccess struct {
 	Data    interface{} `json:"data"`
 }
 
+type ResponseLoginSuccess struct {
+	Code    int         `json:"code"`
+	Message string      `json:"message"`
+	Data    interface{} `json:"data"`
+	Token   interface{} `json:"token"`
+}
+
 func SuccessResponse(data interface{}) ResponseSuccess {
 	return ResponseSuccess{
 		Code:    200,
 		Message: "Successful Operation",
 		Data:    data,
+	}
+}
+
+func SuccessLoginResponse(data, token interface{}) ResponseLoginSuccess {
+	return ResponseLoginSuccess{
+		Code:    200,
+		Message: "Successful Operation",
+		Data:    data,
+		Token:   token,
 	}
 }
 

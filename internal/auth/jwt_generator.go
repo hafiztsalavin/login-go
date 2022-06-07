@@ -1,13 +1,15 @@
 package auth
 
 import (
+	"errors"
 	"os"
 	"time"
 
 	"github.com/golang-jwt/jwt"
+	"github.com/labstack/echo/v4"
 )
 
-func CreateJWTToken(userId uint32, email, role string) (string, error) {
+func CreateJWT(userId uint, email, role string) (string, error) {
 	expirationAccessToken := time.Now().Add(time.Hour * 1)
 	claims := &Claims{
 		Id:    userId,
@@ -43,4 +45,13 @@ func CreateRefreshToken(accessToken string) (string, error) {
 	}
 
 	return refreshToken, nil
+}
+func ExtractToken(e echo.Context) (Claims, error) {
+	user := e.Get("user").(*jwt.Token)
+	claims := &Claims{}
+	jwt.ParseWithClaims(user.Raw, claims, func(token *jwt.Token) (interface{}, error) {
+		return []byte(os.Getenv("JWT_ACCESS_KEY")), nil
+	})
+
+	return *claims, errors.New("invalid token")
 }

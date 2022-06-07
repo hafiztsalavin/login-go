@@ -1,4 +1,4 @@
-package users
+package auth
 
 type UserResponse struct {
 	ID    uint   `json:"id"`

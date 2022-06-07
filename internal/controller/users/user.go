@@ -1,11 +1,11 @@
 package users
 
 import (
+	"login-go/internal/auth"
+	"login-go/internal/repository/entity"
+	"login-go/internal/repository/postgres/user"
+	"login-go/internal/utils"
 	"net/http"
-	"news-be/internal/auth"
-	"news-be/internal/repository/entity"
-	"news-be/internal/repository/postgres/user"
-	"news-be/internal/utils"
 
 	"github.com/labstack/echo/v4"
 )
@@ -70,14 +70,19 @@ func (uc UserController) Login(c echo.Context) error {
 	var refreshToken string
 
 	if passTrue {
-		accessToken, _ = auth.CreateJWTToken(uint32(userDB.ID), userDB.Email, userDB.Role)
+		accessToken, _ = auth.CreateJWT(userDB.ID, userDB.Email, userDB.Role)
 		refreshToken, _ = auth.CreateRefreshToken(accessToken)
 	}
 
-	response := TokenResponse{
+	responseData := DataResponse{
+		Name: userDB.Name,
+		Role: userDB.Role,
+	}
+
+	responseToken := TokenResponse{
 		AccessToken:  accessToken,
 		RefreshToken: refreshToken,
 	}
 
-	return c.JSON(http.StatusOK, utils.SuccessResponse(response))
+	return c.JSON(http.StatusOK, utils.SuccessLoginResponse(responseData, responseToken))
 }

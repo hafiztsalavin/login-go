@@ -2,14 +2,16 @@ package main
 
 import (
 	"fmt"
-	"news-be/internal/config"
-	"news-be/internal/controller/users"
+	"login-go/internal/config"
+	ca "login-go/internal/controller/auth"
+	cu "login-go/internal/controller/users"
 
-	"news-be/internal/repository/postgres"
-	"news-be/internal/repository/postgres/user"
-	"news-be/internal/validate"
+	"login-go/internal/repository/postgres"
+	ar "login-go/internal/repository/postgres/auth"
+	ur "login-go/internal/repository/postgres/user"
+	"login-go/internal/validate"
 
-	"news-be/internal/routes"
+	"login-go/internal/routes"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v4"
@@ -33,13 +35,16 @@ func main() {
 	e.Validator = &validate.Validator{Validator: validator.New()}
 
 	// repository
-	userRepo := user.NewUserRepository(db)
+	userRepo := ur.NewUserRepository(db)
+	authRepo := ar.NewUserAuthRepository(db)
 
 	// controller
-	userController := users.NewUserController(userRepo)
+	userController := cu.NewUserController(userRepo)
+	authController := ca.NewUserAuthController(authRepo)
 
 	// routes
 	routes.RegisterPath(e, userController)
+	routes.UserAuthPath(e, authController)
 
 	address := fmt.Sprintf(":%d", cfg.Port)
 	e.Logger.Fatal(e.Start(address))

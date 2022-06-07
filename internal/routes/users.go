@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"news-be/internal/controller/users"
+	"login-go/internal/controller/users"
 
 	"github.com/labstack/echo/v4"
 )

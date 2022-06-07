@@ -1,4 +1,4 @@
-module news-be
+module login-go
 
 go 1.17
 

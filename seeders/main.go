@@ -3,10 +3,10 @@ package main
 import (
 	"fmt"
 	"log"
-	"news-be/internal/config"
-	"news-be/internal/repository/entity"
-	"news-be/internal/repository/postgres"
-	"news-be/internal/utils"
+	"login-go/internal/config"
+	"login-go/internal/repository/entity"
+	"login-go/internal/repository/postgres"
+	"login-go/internal/utils"
 
 	"gorm.io/gorm"
 )

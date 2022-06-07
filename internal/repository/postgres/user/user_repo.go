@@ -1,7 +1,7 @@
 package user
 
 import (
-	"news-be/internal/repository/entity"
+	"login-go/internal/repository/entity"
 
 	"gorm.io/gorm"
 )
