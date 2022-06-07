@@ -6,3 +6,8 @@ type UserResponse struct {
 	Email string `json:"email"`
 	Role  string `json:"role"`
 }
+
+type TokenResponse struct {
+	AccessToken  string `json:"access_token"`
+	RefreshToken string `json:"refresh_token"`
+}

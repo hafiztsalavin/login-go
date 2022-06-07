@@ -8,4 +8,5 @@ import (
 
 func RegisterPath(e *echo.Echo, userController *users.UserController) {
 	e.POST("/register", userController.Create)
+	e.POST("/login", userController.Login)
 }
