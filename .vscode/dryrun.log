@@ -1,0 +1,5 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/hafiztsalavin/go/src/login-go'
+go run app/api/main.go
+make: Leaving directory '/home/hafiztsalavin/go/src/login-go'
+ 
