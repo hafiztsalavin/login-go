@@ -18,8 +18,6 @@ func UserRole(next echo.HandlerFunc) echo.HandlerFunc {
 		}
 
 		c.Set("id", user.Id)
-		c.Set("email", user.Email)
-		c.Set("role", user.Role)
 		return next(c)
 	}
 }
