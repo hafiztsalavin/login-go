@@ -8,12 +8,12 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func UserRole(next echo.HandlerFunc) echo.HandlerFunc {
+func AdminRole(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
 
 		user, _ := auth.ExtractToken(c)
 
-		if user.Role != "user" {
+		if user.Role != "admin" {
 			return c.JSON(http.StatusUnauthorized, utils.NewUnauthorizeResponse())
 		}
 

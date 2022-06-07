@@ -10,6 +10,16 @@ import (
 )
 
 func UserAuthPath(e *echo.Echo, authController *auth.AuthController) {
-	// auth := e.Group("auth")
-	e.GET("/profile", authController.UserDetails, middleware.JWT([]byte(os.Getenv("JWT_ACCESS_KEY"))), middlewares.UserRole)
+	auth := e.Group("/auth")
+	auth.GET("/profile", authController.UserDetails, middleware.JWT([]byte(os.Getenv("JWT_ACCESS_KEY"))), middlewares.UserRole)
+	auth.PUT("/update", authController.UserUpdate, middleware.JWT([]byte(os.Getenv("JWT_ACCESS_KEY"))), middlewares.UserRole)
+
+	admin := e.Group("/admin")
+	admin.GET("/profile", authController.UserDetails, middleware.JWT([]byte(os.Getenv("JWT_ACCESS_KEY"))), middlewares.AdminRole)
+	auth.PUT("/delete", authController.UserDelete, middleware.JWT([]byte(os.Getenv("JWT_ACCESS_KEY"))), middlewares.AdminRole)
+
+	root := e.Group("/root")
+	root.POST("/register", authController.CreateAdmin, middleware.JWT([]byte(os.Getenv("JWT_ACCESS_KEY"))), middlewares.SuperAdminRole)
+	root.PUT("/delete", authController.UserDelete, middleware.JWT([]byte(os.Getenv("JWT_ACCESS_KEY"))), middlewares.SuperAdminRole)
+
 }

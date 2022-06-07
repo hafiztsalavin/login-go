@@ -20,16 +20,16 @@ func main() {
 	}
 
 	if err := AdminSeed(db); err != nil {
-		log.Fatalf("Error when create admin, %v", err)
+		log.Fatalf("Error when create super admin, %v", err)
 	}
 }
 
 func AdminSeed(db *gorm.DB) error {
-	pass, _ := utils.HashPassword("passwordadmin")
+	pass, _ := utils.HashPassword("superadmin")
 	admin := entity.User{
-		Name:     "tsalavin",
-		Email:    "admintsalavin@gmail.com",
-		Role:     "admin",
+		Name:     "super alvin",
+		Email:    "superalvin@gmail.com",
+		Role:     "super admin",
 		Password: pass,
 	}
 
