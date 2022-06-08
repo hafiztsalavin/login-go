@@ -10,7 +10,7 @@ import (
 )
 
 func CreateJWT(userId uint, email, role string) (string, error) {
-	expirationAccessToken := time.Now().Add(time.Hour * 1)
+	expirationAccessToken := time.Now().Add(time.Minute * 1)
 	claims := &Claims{
 		Id:    userId,
 		Email: email,
@@ -46,6 +46,7 @@ func CreateRefreshToken(accessToken string) (string, error) {
 
 	return refreshToken, nil
 }
+
 func ExtractToken(e echo.Context) (Claims, error) {
 	user := e.Get("user").(*jwt.Token)
 	claims := &Claims{}
@@ -54,4 +55,35 @@ func ExtractToken(e echo.Context) (Claims, error) {
 	})
 
 	return *claims, errors.New("invalid token")
+}
+
+func ValidateRefresh(refreshToken string) (Claims, error) {
+	accessClaims := &AccessClaims{}
+	oldRefreshToken, _ := jwt.ParseWithClaims(refreshToken, accessClaims, func(token *jwt.Token) (interface{}, error) {
+		return []byte(os.Getenv("JWT_REFRESH_KEY")), nil
+	})
+
+	if oldRefreshToken.Valid {
+
+		// get Payload from Old Access Token
+		claims := &Claims{}
+		jwtToken, err := jwt.ParseWithClaims(accessClaims.AccessToken, claims, func(token *jwt.Token) (interface{}, error) {
+			return []byte(os.Getenv("JWT_ACCESS_KEY")), nil
+		})
+
+		if jwtToken.Valid {
+			return *claims, errors.New("your login sesion still valid")
+		}
+
+		if err == nil {
+			if err != jwt.ErrSignatureInvalid {
+				return *claims, errors.New("your login sesion still valid")
+			}
+			return *claims, errors.New("your login sesion still valid")
+		}
+
+		return *claims, nil
+	}
+
+	return Claims{}, errors.New("invalid token")
 }

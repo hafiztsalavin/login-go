@@ -35,7 +35,7 @@ func (ar *AdminRepository) DeleteUserAdmin(nama, email string) (entity.User, err
 	if err := ar.db.Where("name = ? AND email = ?", nama, email).First(&user).Error; err != nil {
 		return user, err
 	}
-	if user.Role == "super user" {
+	if user.Role == "super admin" {
 		return user, errors.New("admin user not allowed to delete")
 	}
 	ar.db.Delete(&user)

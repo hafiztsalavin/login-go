@@ -27,8 +27,8 @@ func main() {
 func AdminSeed(db *gorm.DB) error {
 	pass, _ := utils.HashPassword("superadmin")
 	admin := entity.User{
-		Name:     "super alvin",
-		Email:    "superalvin@gmail.com",
+		Name:     "super hafiz",
+		Email:    "superhafiz@gmail.com",
 		Role:     "super admin",
 		Password: pass,
 	}

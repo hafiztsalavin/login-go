@@ -86,3 +86,36 @@ func (uc UserController) Login(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, utils.SuccessLoginResponse(responseData, responseToken))
 }
+
+func (uc UserController) Refresh(c echo.Context) error {
+	var refreshReq RefreshTokenRequest
+
+	c.Bind(&refreshReq)
+	if err := c.Validate(&refreshReq); err != nil {
+		return c.JSON(http.StatusBadRequest, utils.NewBadRequestResponse())
+	}
+
+	user, err := auth.ValidateRefresh(refreshReq.RefreshToken)
+	if err != nil {
+		return c.JSON(http.StatusUnauthorized, utils.NewUnauthorizeResponse())
+	}
+	userDB, err := uc.Repository.Login(user.Email)
+	if err != nil {
+		return c.JSON(http.StatusNotFound, utils.ErrorResponse(http.StatusNotFound, "Not Found"))
+	}
+
+	accessToken, _ := auth.CreateJWT(userDB.ID, userDB.Email, userDB.Role)
+	refreshToken, _ := auth.CreateRefreshToken(accessToken)
+
+	responseData := DataResponse{
+		Name: userDB.Name,
+		Role: userDB.Role,
+	}
+
+	responseToken := TokenResponse{
+		AccessToken:  accessToken,
+		RefreshToken: refreshToken,
+	}
+
+	return c.JSON(http.StatusOK, utils.SuccessLoginResponse(responseData, responseToken))
+}
