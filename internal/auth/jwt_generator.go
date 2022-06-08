@@ -10,7 +10,7 @@ import (
 )
 
 func CreateJWT(userId uint, email, role string) (string, error) {
-	expirationAccessToken := time.Now().Add(time.Minute * 1)
+	expirationAccessToken := time.Now().Add(time.Hour * 1)
 	claims := &Claims{
 		Id:    userId,
 		Email: email,

@@ -47,7 +47,7 @@ func MigrateModels(db *gorm.DB) error {
 		return err
 	}
 
-	fmt.Println("Model(s) migrated")
+	fmt.Println("Model migrated")
 
 	return nil
 }

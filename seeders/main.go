@@ -35,7 +35,7 @@ func AdminSeed(db *gorm.DB) error {
 
 	db.Create(&admin)
 
-	fmt.Println("Admin(s) created")
+	fmt.Println("Super Admin created")
 
 	return nil
 }
