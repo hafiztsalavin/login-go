@@ -6,6 +6,7 @@ import (
 	cadm "login-go/internal/controller/admin"
 	ca "login-go/internal/controller/auth"
 	cu "login-go/internal/controller/users"
+	"login-go/internal/middlewares"
 
 	"login-go/internal/repository/postgres"
 	adr "login-go/internal/repository/postgres/admin"
@@ -20,33 +21,27 @@ import (
 )
 
 func main() {
-
-	// Initialize news config
 	cfg := config.NewConfig()
 
-	// Initialize DB repositories
 	db, err := postgres.NewPostgresRepo(&cfg.DatabaseConfig)
 	checkErr(err)
 
 	e := echo.New()
 
-	// logging
-	// middlewares.LogMiddleware(e)
+	e.Use(middlewares.Logging)
+	e.HTTPErrorHandler = middlewares.ErrorHandler
 
-	// validator
 	e.Validator = &validate.Validator{Validator: validator.New()}
 
-	// repository
 	userRepo := ur.NewUserRepository(db)
-	authRepo := ar.NewUserAuthRepository(db)
-	adminRepo := adr.NewAdminRepository(db)
-
-	// controller
 	userController := cu.NewUserController(userRepo)
+
+	authRepo := ar.NewUserAuthRepository(db)
 	authController := ca.NewUserAuthController(authRepo)
+
+	adminRepo := adr.NewAdminRepository(db)
 	adminController := cadm.NewAdminController(adminRepo)
 
-	// routes
 	routes.RegisterPath(e, userController)
 	routes.UserAuthPath(e, authController)
 	routes.AdminPath(e, adminController)
