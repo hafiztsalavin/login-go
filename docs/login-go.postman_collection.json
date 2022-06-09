@@ -1,0 +1,396 @@
+{
+	"info": {
+		"_postman_id": "f6650337-3785-4bd0-b912-5af40177fef9",
+		"name": "login-go",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Login Admin",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"tsalavin\",\n  \"email\": \"admintsalavin@gmail.com\",\n  \"password\": \"passwordadmin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Details Admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6NywiRW1haWwiOiJsYWxhQGdtYWlsLmNvbSIsIlJvbGUiOiJ1c2VyIiwiZXhwIjoxNjU0NTkxODA1fQ.h8gzIhePbMcXs1GP6oTe6wiE13_K2yvwMALqf_PWFi4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8888/admin/profile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"admin",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6MywiRW1haWwiOiJhZG1pbnRzYWxhdmluQGdtYWlsLmNvbSIsIlJvbGUiOiJhZG1pbiIsImV4cCI6MTY1NDY3MzAzMn0.8Pj9Jot79JDO3FgC20N1kJtObcAyMBEYK3IxoomJZqU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"tsalavin\",\n  \"email\": \"admintsalavin@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/admin/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"admin",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get Details User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6MTIsIkVtYWlsIjoibGFsYUBnbWFpbC5jb20iLCJSb2xlIjoidXNlciIsImV4cCI6MTY1NDY3MjU3MH0.Sikqn_b4h_Eh2kOuTuOvq9ZJe_x4_tjKusUCxq9tJ-I",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8888/auth/profile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"auth",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6NywiRW1haWwiOiJsYWxhQGdtYWlsLmNvbSIsIlJvbGUiOiJ1c2VyIiwiZXhwIjoxNjU0NTkxODA1fQ.h8gzIhePbMcXs1GP6oTe6wiE13_K2yvwMALqf_PWFi4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"lali\",\n  \"email\": \"lali@gmail.com\",\n  \"password\": \"pass1998\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/auth/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"auth",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Super Admin",
+			"item": [
+				{
+					"name": "Add New Admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6OCwiRW1haWwiOiJzdXBlcnRzYWxhdmluQGdtYWlsLmNvbSIsIlJvbGUiOiJzdXBlciBhZG1pbiIsImV4cCI6MTY1NDU5OTUyNX0.8x_bQVbTJQsKs8EYSOIGq9Ae1kEGZoCOc7d4mbOd6NE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"admin hafiz\",\n  \"email\": \"adminhafiz@gmail.com\",\n  \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/root/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"root",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Super Admin",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"supertsalavin\",\n  \"email\": \"supertsalavin@gmail.com\",\n  \"password\": \"superadmin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User Admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6OCwiRW1haWwiOiJzdXBlcnRzYWxhdmluQGdtYWlsLmNvbSIsIlJvbGUiOiJzdXBlciBhZG1pbiIsImV4cCI6MTY1NDU5OTUyNX0.8x_bQVbTJQsKs8EYSOIGq9Ae1kEGZoCOc7d4mbOd6NE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Alvin\",\n  \"email\": \"adminalvin@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/root/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"root",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"lalo\",\n  \"email\": \"lalo@gmail.com\",\n  \"password\": \"pass1998\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8888/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Refresh Token",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6MTIsIkVtYWlsIjoibGFsYUBnbWFpbC5jb20iLCJSb2xlIjoidXNlciIsImV4cCI6MTY1NDY3MjQwNX0.TyVPE2W4Idf5L4lhPeVR5tt4OeJP7HzNkicgMhoZF2s",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"refresh_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBY2Nlc3NUb2tlbiI6ImV5SmhiR2NpT2lKSVV6STFOaUlzSW5SNWNDSTZJa3BYVkNKOS5leUpKWkNJNk1USXNJa1Z0WVdsc0lqb2liR0ZzWVVCbmJXRnBiQzVqYjIwaUxDSlNiMnhsSWpvaWRYTmxjaUlzSW1WNGNDSTZNVFkxTkRZM01qUXdOWDAuVHlWUEUyVzRJZGY1TDRsaFBlVlI1dHQ0T2VKUDdIek5raWNnTWhvWkYycyIsImV4cCI6MTY1NDY5Mzk0NX0.9NPUgEQMLc18zuDM_8Y2nrGR4BzorjTwSktUaAmasiA\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8888/refresh",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"refresh"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"lala\",\n  \"email\": \"lala@gmail.com\",\n  \"password\": \"pass1998\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8888/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
