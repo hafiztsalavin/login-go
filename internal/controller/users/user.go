@@ -119,3 +119,7 @@ func (uc UserController) Refresh(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, utils.SuccessLoginResponse(responseData, responseToken))
 }
+
+func (uc UserController) HomePage(c echo.Context) error {
+	return c.String(http.StatusOK, "pong!")
+}

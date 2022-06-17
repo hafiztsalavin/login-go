@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+
+  login-postgres:
+    image: postgres:13-alpine
+    container_name: login-postgres
+    volumes:
+      - login-postgres:/var/lib/postgresql/data
+    ports:
+      - 5400:5432
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    restart: always
+
+volumes:
+  login-postgres:
